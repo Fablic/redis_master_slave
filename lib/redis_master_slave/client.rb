@@ -18,10 +18,12 @@ module RedisMasterSlave
     def initialize(*args)
       case args.size
       when 1
-        config = args.first
+        config = args.first[Rails.env]
+
+        raise ArgumentError, 'Wrong config. Please include environment, master, and slave' unless config.present?
 
         master_config = config['master'] || config[:master]
-        slave_configs = config['slaves'] || config[:slaves]
+        slave_configs = config['slaves'] || config[:slaves] || {}
       when 2
         master_config, slave_configs = *args
       else

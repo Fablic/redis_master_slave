@@ -143,7 +143,7 @@ module RedisMasterSlave
         config.each do |key, value|
           redis_config[key.to_sym] = value
         end
-        Redis.new(config)
+        Redis.new(redis_config)
       else
         # Hopefully a client object.
         config
